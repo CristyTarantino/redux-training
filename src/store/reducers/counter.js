@@ -1,4 +1,5 @@
-import * as actionType from '../actionConstants';
+import * as actionTypes from '../../store/actions/actionTypes';
+import {updateObject} from '../utility';
 
 const initialState = {
   counter: 0
@@ -7,26 +8,14 @@ const initialState = {
 // N.B. Immutable Update Patterns -> https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionType.INCREMENT:
-      return {
-        ...state,
-        counter: state.counter + 1
-      };
-    case actionType.DECREMENT:
-      return {
-        ...state,
-        counter: state.counter - 1
-      };
-    case actionType.ADD:
-      return {
-        ...state,
-        counter: state.counter + action.payload.value
-      };
-    case actionType.SUBTRACT:
-      return {
-        ...state,
-        counter: state.counter - action.payload.value
-      };
+    case actionTypes.INCREMENT:
+      return updateObject(state, {counter: state.counter + 1});
+    case actionTypes.DECREMENT:
+      return updateObject(state, {counter: state.counter - 1});
+    case actionTypes.ADD:
+      return updateObject(state, {counter: state.counter + action.payload.value});
+    case actionTypes.SUBTRACT:
+      return updateObject(state, {counter: state.counter - action.payload.value});
     default:
       return state;
   }
